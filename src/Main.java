@@ -6,26 +6,16 @@ import java.io.IOException;
  * and FileManager classes. It allows users to encrypt, decrypt, perform brute force decryption, and statistical analysis
  * on encrypted text.
  */
-
 public class Main {
-    private Scanner scanner;
-    private Validator validator;
-    private FileManager fileManager;
-    private CaesarCipher caesarCipher;
-    private BruteForce bruteForce;
-
+    private final Scanner scanner;
+    private final BruteForce bruteForce;
 
     /**
      * Constructs a {@code Main} object and initializes all the components required for encryption and decryption operations.
      */
-
     public Main() {
         scanner = new Scanner(System.in);
-        validator = new Validator();
-        fileManager = new FileManager(validator, scanner);
-        caesarCipher = new CaesarCipher(3);
-        bruteForce = new BruteForce(caesarCipher);
-
+        bruteForce = new BruteForce(new CaesarCipher(3));
     }
 
     /**
@@ -33,6 +23,8 @@ public class Main {
      * The user is given options to encrypt, decrypt, perform brute force decryption, or exit the application.
      */
     public void run() {
+        Validator validator = new Validator();
+        FileManager fileManager = new FileManager(validator, scanner);
         try {
             printMenu();
             int option = scanner.nextInt();
@@ -73,11 +65,11 @@ public class Main {
 
                     System.out.println("Introduce el nombre del archivo de salida:");
                     outputFilePath = scanner.nextLine();
-                    String encryptedText = caesarCipher.encrypt(plaintextContent, key);
+                    String encryptedText = CaesarCipher.encrypt(plaintextContent, key);
                     try {
                         fileManager.writeFile(outputFilePath, encryptedText);
                         System.out.println("Archivo cifrado y guardado en " + outputFilePath);
-                        createPropertiesFile(inputFilePath, outputFilePath, key);
+                        createPropertiesFile(fileManager,inputFilePath, outputFilePath, key);
                     } catch (Exception e) {
                         System.out.println("Error al escribir el archivo de salida: " + e.getMessage());
                     }
@@ -99,7 +91,7 @@ public class Main {
                         }
                         System.out.println("Introduce el nombre del archivo de salida:");
                         outputFilePath = scanner.nextLine();
-                        String decryptedContent = caesarCipher.decrypt(encryptedContent, key);
+                        String decryptedContent = CaesarCipher.decrypt(encryptedContent, key);
                         fileManager.writeFile(outputFilePath, decryptedContent);
                         System.out.println("Archivo descifrado y guardado en " + outputFilePath);
                     } catch (IOException e) {
@@ -145,8 +137,7 @@ public class Main {
      * @param outputFilePath the path of the output file
      * @param key the encryption key used
      */
-
-    private void createPropertiesFile(String inputFilePath, String outputFilePath, int key) {
+    private void createPropertiesFile(FileManager fileManager,String inputFilePath, String outputFilePath, int key) {
         String propertiesContent = "Ruta del archivo de entrada: " + inputFilePath + "\n" +
                 "Ruta del archivo de salida: " + outputFilePath + "\n" +
                 "Clave: " + key;
