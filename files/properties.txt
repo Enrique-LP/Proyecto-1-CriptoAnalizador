@@ -1,0 +1,3 @@
+Ruta del archivo de entrada: files/a.txt
+Ruta del archivo de salida: files/b.txt
+Clave: 3
