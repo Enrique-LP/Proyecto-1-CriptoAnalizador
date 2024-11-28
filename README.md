@@ -1,7 +1,7 @@
 # Analizador de Cifrado César
 
 ## Descripción
-Este proyecto implementa un sistema de cifrado y descifrado usando el algoritmo César, con capacidades adicionales de análisis estadístico y fuerza bruta.
+Este proyecto implementa un sistema de cifrado y descifrado usando el algoritmo César y fuerza bruta.
 
 ## Características
 - 📝 Cifrado de archivos de texto
@@ -37,16 +37,11 @@ CryptoAnalyzer/
 3. Ingrese la clave numérica
 4. Especifique el archivo de salida
 
-### Análisis Estadístico
-1. Seleccione opción 4
-2. Ingrese el nombre del archivo cifrado
-3. El programa detectará automáticamente el desplazamiento más probable
-
 ## Documentación
 La documentación completa del código está disponible en la carpeta JavaDoc/
 
 ## Autor
-[Tu Nombre]
+[Enrique]
 
 ## Licencia
 Este proyecto está bajo la Licencia MIT
